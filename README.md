@@ -1,4 +1,4 @@
-# CPS 356 Project 3 — Disk and persistence reference
+# CPS 356 Project 3 - Disk and persistence reference
 
 This annotated C11 reference demonstrates the virtual disk, Sai’s part of the project. The project handout requires team-authored C for submission. Use this copy for learning and testing.
 
