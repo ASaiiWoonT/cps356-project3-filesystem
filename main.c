@@ -1,9 +1,14 @@
+
 #include "disk.h"
 
 #include <inttypes.h>
 #include <stdio.h>
 #include <string.h>
 
+// Member 2
+void shell_run(struct Disk *disk, const char *disk_path);
+
+// Member 1
 static int create_example(struct Disk *disk)
 {
     disk_init(disk);  // This creates the root and leaves 31 slots free.
@@ -29,6 +34,39 @@ static int create_example(struct Disk *disk)
 
 int main(int argc, char **argv)
 {
+    // Member 2 - Interactive shell startup
+    if (argc == 1 || argc == 2) {
+        const char *disk_path = "virtual_disk.bin";
+
+        if (argc == 2) {
+            disk_path = argv[1];
+        }
+
+        struct Disk shell_disk;
+        enum DiskResult result = disk_load(&shell_disk, disk_path);
+
+        if (result == DISK_MISSING) {
+            disk_init(&shell_disk);
+            printf("New virtual disk initialized.\n");
+        }
+        else if (result == DISK_OK) {
+            printf("Virtual disk loaded successfully.\n");
+        }
+        else {
+            fprintf(stderr, "Error: Could not load virtual disk.\n");
+            return 1;
+        }
+
+        printf("Welcome to OS Shell Simulator!\n");
+
+        shell_run(&shell_disk, disk_path);
+
+        return 0;
+    }
+    // End of Member 2 additions
+
+
+    // Member 1 - Original seed and show functionality
     if (argc != 3 || (strcmp(argv[1], "seed") != 0 && strcmp(argv[1], "show") != 0)) {
         fprintf(stderr, "Usage: %s seed|show image-path\n", argv[0]);
         return 1;
