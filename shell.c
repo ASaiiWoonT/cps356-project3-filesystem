@@ -166,6 +166,61 @@ void shell_run(struct Disk *disk, const char *disk_path)
             fs_ls(disk, current_id);
         }
 
+        // Create an empty file.
+        else if (strcmp(args[0], "touch") == 0) {
+
+            if (argc != 2) {
+                printf("Usage: touch [filename]\n");
+                continue;
+            }
+
+            fs_touch(disk, current_id, args[1]);
+        }
+
+        // Write content into a file.
+        else if (strcmp(args[0], "write") == 0) {
+
+            if (argc != 3) {
+                printf("Usage: write [filename] [content]\n");
+                continue;
+            }
+
+            fs_write(disk, current_id, args[1], args[2]);
+        }
+
+        // Read file contents.
+        else if (strcmp(args[0], "read") == 0) {
+
+            if (argc != 2) {
+                printf("Usage: read [filename]\n");
+                continue;
+            }
+
+            fs_read(disk, current_id, args[1]);
+        }
+
+        // Copy a file.
+        else if (strcmp(args[0], "cp") == 0) {
+
+            if (argc != 3) {
+                printf("Usage: cp [source] [destination]\n");
+                continue;
+            }
+
+            fs_cp(disk, current_id, args[1], args[2]);
+        }
+
+        // Move or rename an item.
+        else if (strcmp(args[0], "mv") == 0) {
+
+            if (argc != 3) {
+                printf("Usage: mv [source] [destination]\n");
+                continue;
+            }
+
+            fs_mv(disk, current_id, args[1], args[2]);
+        }
+
         // Save the virtual disk and exit.
         else if (strcmp(args[0], "exit") == 0) {
 
